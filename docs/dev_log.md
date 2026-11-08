@@ -30,3 +30,13 @@
 - Observation: figure-8 final error is small while max error is large (drift partly cancels) -> final error alone is misleading
 - 13 unit tests passing
 - Next: Extended Kalman Filter fusing odometry and gyroscope
+
+
+## 2026-11-08 – Session 5: Extended Kalman Filter
+- Implemented EKF, state [x, y, theta, v, omega]; predict with motion model; updates from wheel odometry and gyro
+- R matrices derived from sensor noise settings
+- EKF vs baselines (seed 1): ~50% lower RMSE than odometry-only, but slightly worse than odometry + gyro heading
+- Consistency check: heading error inside EKF's ±2σ only 1% of time -> EKF overconfident; systematic errors (gyro bias, wheel scale) not modelled
+- 17 unit tests passing
+- Next: experiments over multiple seeds and noise levels
+
