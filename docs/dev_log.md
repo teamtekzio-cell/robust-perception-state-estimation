@@ -49,3 +49,13 @@
 - Error scales roughly linearly with sensor noise
 - Config saved to experiments/configs/session6_config.json
 - Next: sensor-failure test (temporary sensor outage)
+
+
+## 2026-11-08 – Session 7: Temporary sensor failure (Experiment 4)
+- Added faults.py (sensor outage injection, missing readings = NaN)
+- Baselines: hold-last-value for wheels, wheel-omega fallback for gyro; EKF skips updates for silent sensors
+- Square, 10 seeds: gyro off 15 s -> EKF +0.18 m extra final error (graceful degradation)
+- Wheels off 5 s during a turn -> odometry-only +1.80 m (hold-last-value fails); EKF +0.32 m (gyro still sees the turn)
+- No recovery after outages: motion-only sensors cannot correct past error; EKF uncertainty correctly rises and stays high
+- 21 unit tests passing
+- Next: Ubuntu + ROS 2 + Gazebo installation (Session 8)

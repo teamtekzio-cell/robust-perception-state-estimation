@@ -35,14 +35,20 @@ def run_ekf(sensors: pd.DataFrame, cfg: SensorConfig) -> pd.DataFrame:
     R_odom, R_gyro = measurement_noise(cfg)
     ekf = EKF()
     t = sensors.t.to_numpy()
-    rows = [dict(t=t[0], x=0.0, y=0.0, theta=0.0, sigma_theta=0.0)]
+    rows = [dict(t=t[0], x=0.0, y=0.0, theta=0.0, sigma_theta=0.0, sigma_pos=0.0)]
+    vl_all = sensors.meas_v_left.to_numpy()
+    vr_all = sensors.meas_v_right.to_numpy()
+    gyro_all = sensors.meas_gyro.to_numpy()
     for k in range(1, len(t)):
         ekf.predict(t[k] - t[k - 1])
-        vl, vr = sensors.meas_v_left.iloc[k], sensors.meas_v_right.iloc[k]
-        ekf.update_odometry((vr + vl) / 2, (vr - vl) / WHEEL_BASE, R_odom)
-        ekf.update_gyro(sensors.meas_gyro.iloc[k], R_gyro)
+        vl, vr = vl_all[k], vr_all[k]
+        if not (np.isnan(vl) or np.isnan(vr)):          # skip update if wheels are silent
+            ekf.update_odometry((vr + vl) / 2, (vr - vl) / WHEEL_BASE, R_odom)
+        if not np.isnan(gyro_all[k]):                    # skip update if gyro is silent
+            ekf.update_gyro(gyro_all[k], R_gyro)
         rows.append(dict(t=t[k], x=ekf.s[0], y=ekf.s[1], theta=ekf.s[2],
-                         sigma_theta=np.sqrt(ekf.P[TH, TH])))
+                         sigma_theta=np.sqrt(ekf.P[TH, TH]),
+                         sigma_pos=np.sqrt(ekf.P[0, 0] + ekf.P[1, 1])))
     return pd.DataFrame(rows)
 
 
