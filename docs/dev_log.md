@@ -40,3 +40,12 @@
 - 17 unit tests passing
 - Next: experiments over multiple seeds and noise levels
 
+
+## 2026-11-08 – Session 6: Repeated experiments (10 seeds)
+- Exp A (nominal), Exp B (noise only, systematic errors off), Exp C (noise levels 0.5x–4x)
+- Systematic errors cause most drift: removing them cut position RMSE ~10–20x
+- EKF consistency: 1.5–4% inside ±2σ with systematic errors vs 90–98% with noise only -> confirms cause
+- EKF matched but did not beat odom + gyro heading: gyro ~4x more precise for omega, so fusion adds little
+- Error scales roughly linearly with sensor noise
+- Config saved to experiments/configs/session6_config.json
+- Next: sensor-failure test (temporary sensor outage)

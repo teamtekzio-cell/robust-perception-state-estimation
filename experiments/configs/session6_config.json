@@ -1,0 +1,37 @@
+{
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "trajectories": [
+    "square",
+    "circle",
+    "figure8"
+  ],
+  "noise_levels": [
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "nominal": {
+    "sigma_wheel": 0.005,
+    "wheel_scale_right": 0.01,
+    "sigma_gyro": 0.01,
+    "gyro_bias": 0.005
+  },
+  "noise_only": {
+    "sigma_wheel": 0.005,
+    "wheel_scale_right": 0.0,
+    "sigma_gyro": 0.01,
+    "gyro_bias": 0.0
+  }
+}
