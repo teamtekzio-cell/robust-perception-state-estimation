@@ -59,3 +59,12 @@
 - No recovery after outages: motion-only sensors cannot correct past error; EKF uncertainty correctly rises and stays high
 - 21 unit tests passing
 - Next: Ubuntu + ROS 2 + Gazebo installation (Session 8)
+## 2026-11-08/09 – Session 8: Ubuntu 24.04 + ROS 2 Jazzy + Gazebo Harmonic (dual boot, Laptop 1)
+- Dual-boot Ubuntu 24.04.5 installed on 100 GB of the 1 TB HDD; Windows untouched
+- Windows shrink blocked by unmovable $Mft::$BITMAP -> decrypted D:, shrank with GParted
+- Manual partitioning (ext4 / + separate EFI on HDD); BIOS boot order set to ubuntu first; BitLocker on C: resumed
+- ROS 2 Jazzy desktop installed; talker/listener test passed
+- Gazebo Harmonic + TurtleBot3 Burger running (real-time factor ~85%)
+- Topics: /scan ~4 Hz (below 5 Hz nominal, hardware limit), /imu ~200 Hz, /odom ~50 Hz
+- Repo cloned via GitHub CLI; 21 unit tests pass on Ubuntu (Python 3.12.3)
+- Next: Session 9 – connect Python EKF to ROS 2 topics
